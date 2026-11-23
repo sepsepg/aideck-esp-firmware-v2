@@ -135,6 +135,7 @@ static void wifi_init_ap(const char *ssid, const char *passwd) {
 
     wifi_config_t wifi_config = {
         .ap = {
+            .channel = WIFI_AP_CHANNEL,
             .max_connection = 1,
             .authmode = secured ? WIFI_AUTH_WPA2_PSK : WIFI_AUTH_OPEN
         },
@@ -394,7 +395,7 @@ static void wifi_init_mdns() {
     mdns_instance_name_set("IDSIA AI-deck CPX streamer");
 
     // Add service
-    mdns_service_add(NULL, "_cpx", "_tcp", 5000, NULL, 0);
+    mdns_service_add(NULL, "_cpx", "_tcp", PORT, NULL, 0);
 }
 
 // MARK: UDP transport

@@ -40,7 +40,17 @@
 #define WIFI_SSID "crazyflie"
 
 /* TCP and UDP local ports */
-#define PORT 5000
+#define PORT 5000  // upstream default. 2026-11-11..19 used 443 while the VCU firewall blocked 5000;
+                   // IT has since opened TCP+UDP 5000-5010 (verified 2026-11-19).
+
+/* Access point channel.
+   2026-11-13: channel 11 seemed to fail with the radio connected, but the real cause was the
+   Crazyradio dongle sitting next to the PC's Wi-Fi antennas (it jammed channel 1 just as badly).
+   2026-11-16: with the dongle moved, channel 1 was crowded by a strong VCU campus AP (ping
+   100-300 ms, 13.8 fps), so channel 11 was tried: 9-11 fps, worse, because the radio at
+   2480 MHz sits right above it. Back on channel 1: 18.5-19 fps with the radio on or off.
+   Builds: ~/aideck_cpx_streamer_port5000_ch1.bin (deployed), ..._port443_ch1.bin, ..._port443_ch11.bin. */
+#define WIFI_AP_CHANNEL 1
 
 /* Initialize the WiFi */
 void cpx_wifi_init(wifi_mode_t mode, const char *ssid, const char *key);
